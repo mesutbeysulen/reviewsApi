@@ -1,0 +1,22 @@
+{
+  "name": "reviewslistapi",
+  "version": "1.0.1",
+  "description": "uygulama mağaza yorumları",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "reviews"
+  ],
+  "author": "mesutbeysulen",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "google-play-scraper": "^8.0.2",
+    "group-array": "^1.0.0"
+  }
+}
