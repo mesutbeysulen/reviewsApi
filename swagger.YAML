@@ -21,7 +21,7 @@ schemes:
   - "https"
   - "http"
 paths:
-  /androidreviewlist?limit={limit}/sorting={sorting}/nextPaginationToken={nextPaginationToken}/packageName={packageName}:
+  /androidreviewlist?limit={limit}&sorting={sorting}&nextPaginationToken={nextPaginationToken}&packageName={packageName}:
     get:
       tags:
         - "androidreviewlist"
