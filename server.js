@@ -36,15 +36,13 @@ app.get('/androidreviewlist', function (req, res, next) {
                     res.send(JSON.stringify({data: data, nextPaginationToken: nextPaginationToken}));
                     console.log("Got a GET request for list");
                     next();
-                }
-                catch (err) {
+                } catch (err) {
                     res.status(500) //Internal Server Error
-                    res.send(JSON.stringify({ success: false, message: err.message }));
+                    res.send(JSON.stringify({success: false, message: err.message}));
                     console.log("Not got a GET request for list");
                 }
             });
-        }
-        else if (sorting === "rating") {
+        } else if (sorting === "rating") {
 
             gplay.reviews({
                 appId: packageName,
@@ -60,15 +58,13 @@ app.get('/androidreviewlist', function (req, res, next) {
                     res.send(JSON.stringify({data: data, nextPaginationToken: nextPaginationToken}));
                     console.log("Got a GET request for list");
                     next();
-                }
-                catch (err) {
+                } catch (err) {
                     res.status(500) //Internal Server Error
-                    res.send(JSON.stringify({ success: false, message: err.message }));
+                    res.send(JSON.stringify({success: false, message: err.message}));
                     console.log("Not got a GET request for list");
                 }
             });
-        }
-        else if (sorting === "helpfulness") {
+        } else if (sorting === "helpfulness") {
             gplay.reviews({
                 appId: packageName,
                 sort: gplay.sort.HELPFULNESS,
@@ -83,18 +79,15 @@ app.get('/androidreviewlist', function (req, res, next) {
                     res.send(JSON.stringify({data: data, nextPaginationToken: nextPaginationToken}));
                     console.log("Got a GET request for list");
                     next();
-                }
-                catch (err) {
+                } catch (err) {
                     res.status(500) //Internal Server Error
-                    res.send(JSON.stringify({ success: false, message: err.message }));
+                    res.send(JSON.stringify({success: false, message: err.message}));
                     console.log("Not got a GET request for list");
                 }
             });
         }
 
-    }
-
-    else {
+    } else {
         console.log("null olmayana girdi!")
         if (sorting === 'false' || sorting === "newest") {
             gplay.reviews({
@@ -113,15 +106,13 @@ app.get('/androidreviewlist', function (req, res, next) {
                     res.send(JSON.stringify({data: data, nextPaginationToken: nextPaginationToken}));
                     console.log("Got a GET request for list");
                     next();
-                }
-                catch (err) {
+                } catch (err) {
                     res.status(500) //Internal Server Error
-                    res.send(JSON.stringify({ success: false, message: err.message }));
+                    res.send(JSON.stringify({success: false, message: err.message}));
                     console.log("Not got a GET request for list");
                 }
             });
-        }
-        else if (sorting === "rating") {
+        } else if (sorting === "rating") {
 
             gplay.reviews({
                 appId: packageName,
@@ -139,15 +130,13 @@ app.get('/androidreviewlist', function (req, res, next) {
                     res.send(JSON.stringify({data: data, nextPaginationToken: nextPaginationToken}));
                     console.log("Got a GET request for list");
                     next();
-                }
-                catch (err) {
+                } catch (err) {
                     res.status(500) //Internal Server Error
-                    res.send(JSON.stringify({ success: false, message: err.message }));
+                    res.send(JSON.stringify({success: false, message: err.message}));
                     console.log("Not got a GET request for list");
                 }
             });
-        }
-        else if (sorting === "helpfulness") {
+        } else if (sorting === "helpfulness") {
             gplay.reviews({
                 appId: packageName,
                 sort: gplay.sort.HELPFULNESS,
@@ -164,10 +153,9 @@ app.get('/androidreviewlist', function (req, res, next) {
                     res.send(JSON.stringify({data: data, nextPaginationToken: nextPaginationToken}));
                     console.log("Got a GET request for list");
                     next();
-                }
-                catch (err) {
+                } catch (err) {
                     res.status(500) //Internal Server Error
-                    res.send(JSON.stringify({ success: false, message: err.message }));
+                    res.send(JSON.stringify({success: false, message: err.message}));
                     console.log("Not got a GET request for list");
                 }
             });
@@ -177,8 +165,55 @@ app.get('/androidreviewlist', function (req, res, next) {
 
 })
 
-//ANDROid rating bilgilewrini döndürür.
-app.get('/androidratings',function (req,res, next) {
+//android app bilgisi döndürülür.
+app.get('/androidappinfo', function (req, res, next) {
+    packageName = req.query.packageName;
+    gplay.app({
+        appId: packageName,
+    }).then(function (result) {
+        let data = result;
+        try {
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify({data: data}));
+            console.log("Got a GET request for list");
+            next();
+        } catch (err) {
+            res.status(500) //Internal Server Error
+            res.send(JSON.stringify({success: false, message: err.message}));
+            console.log("Not got a GET request for list");
+        }
+    }).catch(function (err) {
+        res.status(500) //Internal Server Error
+        res.send(JSON.stringify({success: false, message: err.message}));
+        console.log("Not got a GET request for list");
+    });
+})
+
+//ANDROid benzer uygulamaların listesini döndürür
+app.get('/androidsimilar', function (req, res, next) {
+    packageName = req.query.packageName;
+    gplay.similar({
+        appId: packageName,
+        lang: 'tr',
+        country: 'tr',
+        fullDetail: true
+    }).then(function (result) {
+        let data = result;
+        try {
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify({data: data}));
+            console.log("Got a GET request for list");
+            next();
+        } catch (err) {
+            res.status(500) //Internal Server Error
+            res.send(JSON.stringify({success: false, message: err.message}));
+            console.log("Not got a GET request for list");
+        }
+    }).catch(function (err) {
+        res.status(500) //Internal Server Error
+        res.send(JSON.stringify({success: false, message: err.message}));
+        console.log("Not got a GET request for list");
+    });
 
 })
 
@@ -188,7 +223,7 @@ app.get('/iosreviewlist', function (req, res, next) {
     sorting = req.query.sorting;
     appId = req.query.packageId;
     pageNo = req.query.page;
-    if (pageNo<=10){
+    if (pageNo <= 10) {
         if (sorting === "recent") {
             appStore.reviews({
                 appId: 'com.pozitron.hepsiburada',
@@ -208,8 +243,7 @@ app.get('/iosreviewlist', function (req, res, next) {
                 }
             });
 
-        }
-        else {
+        } else {
             appStore.reviews({
                 appId: 'com.pozitron.hepsiburada',
                 sort: appStore.sort.HELPFUL,
@@ -229,8 +263,7 @@ app.get('/iosreviewlist', function (req, res, next) {
             });
 
         }
-    }
-    else {
+    } else {
         res.status(400)
         res.send(JSON.stringify({success: false, message: "iosreviewlist is limited to 10 page"}));
     }
@@ -239,10 +272,10 @@ app.get('/iosreviewlist', function (req, res, next) {
 })
 
 //ios app bilgisi döndürülür - ratings=true ise rating ve histogram bilgisi döndürülür.
-app.get('/iosappinfo',function (req,res, next) {
+app.get('/iosappinfo', function (req, res, next) {
     appId = req.query.packageId;
     scoreRate = req.query.rating;
-    if(scoreRate === 'true'){
+    if (scoreRate === 'true') {
         appStore.app({
             id: appId,
             ratings: true
@@ -263,8 +296,7 @@ app.get('/iosappinfo',function (req,res, next) {
             res.send(JSON.stringify({success: false, message: err.message}));
             console.log("Not got a GET request for list");
         });
-    }
-    else {
+    } else {
         appStore.app({
             id: appId
         }).then(function (result) {
@@ -287,7 +319,6 @@ app.get('/iosappinfo',function (req,res, next) {
     }
 
 })
-
 
 
 app.listen(port, function () {
