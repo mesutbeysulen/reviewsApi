@@ -9,9 +9,16 @@ const hostname = 'localhost';
 let port = process.env.PORT || 3000;
 let nextPaginationToken;
 
+var swaggerUi = require('swagger-ui-express')
+var fs = require('fs')
+var jsyaml = require('js-yaml');
+var spec = fs.readFileSync('swagger.YAML', 'utf8');
+var swaggerDocument = jsyaml.safeLoad(spec);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //Get all review by limit default = 150
-app.get('/androidreviewlist', function (req, res, next) {
+app.get('/api/v1/androidreviewlist', function (req, res, next) {
 
     limit = req.query.limit;
     sorting = req.query.sorting;
@@ -166,7 +173,7 @@ app.get('/androidreviewlist', function (req, res, next) {
 })
 
 //android app bilgisi döndürülür.
-app.get('/androidappinfo', function (req, res, next) {
+app.get('/api/v1/androidappinfo', function (req, res, next) {
     packageName = req.query.packageName;
     gplay.app({
         appId: packageName,
@@ -190,7 +197,7 @@ app.get('/androidappinfo', function (req, res, next) {
 })
 
 //ANDROid benzer uygulamaların listesini döndürür
-app.get('/androidsimilar', function (req, res, next) {
+app.get('/api/v1/androidsimilar', function (req, res, next) {
     packageName = req.query.packageName;
     gplay.similar({
         appId: packageName,
@@ -218,7 +225,7 @@ app.get('/androidsimilar', function (req, res, next) {
 })
 
 //iOS yorum listesi döndürülür
-app.get('/iosreviewlist', function (req, res, next) {
+app.get('/api/v1/iosreviewlist', function (req, res, next) {
 
     sorting = req.query.sorting;
     appId = req.query.packageId;
@@ -272,7 +279,7 @@ app.get('/iosreviewlist', function (req, res, next) {
 })
 
 //ios app bilgisi döndürülür - ratings=true ise rating ve histogram bilgisi döndürülür.
-app.get('/iosappinfo', function (req, res, next) {
+app.get('/api/v1/iosappinfo', function (req, res, next) {
     appId = req.query.packageId;
     scoreRate = req.query.rating;
     if (scoreRate === 'true') {
