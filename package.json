@@ -15,6 +15,7 @@
     "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "app-store-scraper": "^0.16.3",
     "express": "^4.17.1",
     "google-play-scraper": "^8.0.2",
     "group-array": "^1.0.0"
