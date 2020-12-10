@@ -177,6 +177,8 @@ app.get('/api/v1/androidappinfo', function (req, res, next) {
     packageName = req.query.packageName;
     gplay.app({
         appId: packageName,
+        country: 'tr',
+        lang: 'tr'
     }).then(function (result) {
         let data = result;
         try {
@@ -235,7 +237,9 @@ app.get('/api/v1/iosreviewlist', function (req, res, next) {
             appStore.reviews({
                 appId: 'com.pozitron.hepsiburada',
                 sort: appStore.sort.HELPFUL,
-                page: pageNo
+                page: pageNo,
+                country: 'tr',
+                lang: 'tr'
             }).then(function (result) {
                 let data = result;
                 try {
@@ -285,7 +289,9 @@ app.get('/api/v1/iosappinfo', function (req, res, next) {
     if (scoreRate === 'true') {
         appStore.app({
             id: appId,
-            ratings: true
+            ratings: true,
+            country: 'tr',
+            lang: 'tr'
         }).then(function (result) {
             let data = result;
             try {
